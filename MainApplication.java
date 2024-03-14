@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /** 
+ * Group Note:
  * The layout currently is a borderPane(root) with the centre being a stackPane(Panel Container) to display the panels,
  * but the panels themselves can be any layout style (e.g. borderPane)
  * 

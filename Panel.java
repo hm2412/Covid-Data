@@ -1,9 +1,8 @@
 import javafx.scene.layout.Pane;
 
 /**
- * Write a description of class Panel here.
- * 
- * 
+ * Abstract base class representing a generic panel in the application.
+ * Subclasses extend and implement the setupPanel() method.
  */
 public abstract class Panel {
     
