@@ -8,19 +8,12 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.Pane; // Temporarily added for seting up create methods for panels. import neccesary layout style for each panel instead. e.g StackPane
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Notes for group:
- * Need to populate/make the panels inside the create*PanelName*() method.
- * I sugggest we use borderPane for those as well.
- * Need to somehow integrate the data from teh csv file using the other two classes.
- * Need to implement the borough png and somehow make it interactive to pop up a new window.
- * 
- * The layout currently is a borderPane(root) with the centre being a stackPane(Panel container) to display the panels,
+/** 
+ * The layout currently is a borderPane(root) with the centre being a stackPane(Panel Container) to display the panels,
  * but the panels themselves can be any layout style (e.g. borderPane)
  * 
  * I have also made the template for the report which we can fill out towards the end.
@@ -44,7 +37,7 @@ public class MainApplication extends Application {
     private DatePicker startDatePicker;
     private DatePicker endDatePicker;
     private int currentPanelIndex = 0; // To track the current panel
-    private List<Pane> panels; // List to hold the panels
+    private List<Panel> panels; // List to hold the panels
 
     /**
      * The main entry point for the application. Sets up the main stage and initializes the UI components.
@@ -56,13 +49,13 @@ public class MainApplication extends Application {
 
         // Initialize panel list
         panels = new ArrayList<>();
-        panels.add(createWelcomePanel());
-        panels.add(createMapPanel());
-        panels.add(createStatisticsPanel());
+        panels.add(new WelcomePanel());
+        panels.add(new MapPanel());
+        panels.add(new StatisticsPanel());
 
         // Panel container
         panelContainer = new StackPane();
-        panelContainer.getChildren().add(panels.get(currentPanelIndex)); // Start with the first panel
+        panelContainer.getChildren().add(panels.get(currentPanelIndex).getPanel());
 
         root.setCenter(panelContainer);
         
@@ -121,10 +114,11 @@ public class MainApplication extends Application {
                 startDatePicker.setValue(null); // Reset the start date picker
                 btnNext.setDisable(true);
                 btnPrevious.setDisable(true);
+                currentPanelIndex = 0; // Reset panel back to Welcome Panel
+                updatePanelInView();
             } else if (startDate != null && endDate != null) {
                 btnNext.setDisable(false);
                 btnPrevious.setDisable(false);
-                // Add additional logic to update panels based on the selected date range
             }
         });
     
@@ -137,10 +131,11 @@ public class MainApplication extends Application {
                 endDatePicker.setValue(null); // Reset the end date picker
                 btnNext.setDisable(true);
                 btnPrevious.setDisable(true);
+                currentPanelIndex = 0; // Reset panel back to Welcome Panel
+                updatePanelInView();
             } else if (endDate != null && startDate != null) {
                 btnNext.setDisable(false);
                 btnPrevious.setDisable(false);
-                // Add additional logic to update panels based on the selected date range
             }
         });
     }
@@ -165,37 +160,7 @@ public class MainApplication extends Application {
      * Updates the panel container to display the current panel based on 'currentPanelIndex'.
      */
     private void updatePanelInView() {
-        panelContainer.getChildren().setAll(panels.get(currentPanelIndex));
-    }
-
-    /**
-     * Creates and returns the Welcome Panel as a Pane.
-     * @return Pane The Welcome Panel containing introductory information for the user.
-     */
-    private Pane createWelcomePanel() {
-        Pane welcomePanel = new Pane();
-        // Add components to your welcome panel here
-        return welcomePanel;
-    }
-
-    /**
-     * Creates and returns the Map Panel as a Pane.
-     * @return Pane The Map Panel intended to display a map visualizing COVID-19 data.
-     */
-    private Pane createMapPanel() {
-        Pane mapPanel = new Pane();
-        // Add components to your map panel here
-        return mapPanel;
-    }
-
-    /**
-     * Creates and returns the Statistics Panel as a Pane.
-     * @return Pane The Statistics Panel designed to show various COVID-19 statistics.
-     */
-    private Pane createStatisticsPanel() {
-        Pane statisticsPanel = new Pane();
-        // Add components to your statistics panel here
-        return statisticsPanel;
+        panelContainer.getChildren().setAll(panels.get(currentPanelIndex).getPanel());
     }
     
     /**
