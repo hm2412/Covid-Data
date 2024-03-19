@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /** 
  * Group Note:
  * The layout currently is a borderPane(root) with the centre being a stackPane(Panel Container) to display the panels,
@@ -39,6 +40,7 @@ public class MainApplication extends Application {
     private DatePicker endDatePicker;
     private int currentPanelIndex = 0; // To track the current panel
     private List<Panel> panels; // List to hold the panels
+    private ArrayList<CovidData> covidDataList; // List to hold the loaded COVID data
 
     /**
      * The main entry point for the application. Sets up the main stage and initializes the UI components.
@@ -47,12 +49,23 @@ public class MainApplication extends Application {
     @Override
     public void start(Stage mainStage) {
         BorderPane root = new BorderPane();
-
+     
+        // Load COVID data
+        CovidDataLoader dataLoader = new CovidDataLoader();
+        covidDataList = dataLoader.load();
+    
+        setupDatePickers();
+        // Date Picker Container
+        HBox topContainer = new HBox();
+        topContainer.getChildren().addAll(startDatePicker, endDatePicker);
+        topContainer.setSpacing(10); // Set spacing between buttons
+        root.setTop(topContainer); // Set the HBox at the bottom of the BorderPane
+          
         // Initialize panel list
         panels = new ArrayList<>();
         panels.add(new WelcomePanel());
         panels.add(new MapPanel());
-        panels.add(new StatisticsPanel());
+        panels.add(new StatisticsPanel(covidDataList, startDatePicker.getValue(), endDatePicker.getValue()));
 
         // Panel container
         panelContainer = new StackPane();
@@ -67,13 +80,7 @@ public class MainApplication extends Application {
         bottomContainer.setSpacing(10); // Set spacing between buttons
         root.setBottom(bottomContainer); // Set the HBox at the bottom of the BorderPane
         
-        setupDatePickers();
-        // Date Picker Container
-        HBox topContainer = new HBox();
-        topContainer.getChildren().addAll(startDatePicker, endDatePicker);
-        topContainer.setSpacing(10); // Set spacing between buttons
-        root.setTop(topContainer); // Set the HBox at the bottom of the BorderPane
-
+        
         Scene scene = new Scene(root, 800, 600);
         mainStage.setTitle("London COVID-19 Statistics");
         mainStage.setScene(scene);
@@ -121,6 +128,7 @@ public class MainApplication extends Application {
                 btnNext.setDisable(false);
                 btnPrevious.setDisable(false);
             }
+            ((StatisticsPanel) panels.get(2)).updateDates(startDatePicker.getValue(), endDatePicker.getValue());
         });
     
         // Handling the end date selection
@@ -138,6 +146,7 @@ public class MainApplication extends Application {
                 btnNext.setDisable(false);
                 btnPrevious.setDisable(false);
             }
+            ((StatisticsPanel) panels.get(2)).updateDates(startDatePicker.getValue(), endDatePicker.getValue());
         });
     }
 
