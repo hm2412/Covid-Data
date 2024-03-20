@@ -9,6 +9,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +24,7 @@ import java.util.List;
 /**
  * This class extends the Application class from JavaFX and sets up the primary stage (window) for the application.
  * 
- * It includes a date range selection feature at the top and naigation buttons at the bottom.
+ * It includes a date range selection feature at the top and navigation buttons at the bottom.
  * Users can navigate once a valid date range has been selected.
  * The navigation allows user to change between different panels:
  * - A Welcome Panel, which provides introductory information to the user.
@@ -32,20 +33,25 @@ import java.util.List;
  */
 public class MainApplication extends Application {
 
-    private StackPane panelContainer; // To hold the panels
-    private Button btnNext; // Next button
-    private Button btnPrevious; // Previous button
+    private StackPane panelContainer; // To display the selected panel
+    private Button btnNext;
+    private Button btnPrevious;
     private DatePicker startDatePicker;
     private DatePicker endDatePicker;
     private int currentPanelIndex = 0; // To track the current panel
     private List<Panel> panels; // List to hold the panels
+    private List<CovidData> allRecords = new ArrayList<>(); // List to hold all the records
 
     /**
-     * The main entry point for the application. Sets up the main stage and initializes the UI components.
+     * The main entry point for the application. Initializes the Stage, UI components & loads CovidData records.
      * @param mainStage The main stage for this application, onto which the application scene can be set.
      */
     @Override
     public void start(Stage mainStage) {
+         // Load all records
+        CovidDataLoader dataLoader = new CovidDataLoader();
+        allRecords = dataLoader.load();
+        
         BorderPane root = new BorderPane();
 
         // Initialize panel list
@@ -56,8 +62,7 @@ public class MainApplication extends Application {
 
         // Panel container
         panelContainer = new StackPane();
-        panelContainer.getChildren().add(panels.get(currentPanelIndex).getPanel());
-
+        panelContainer.getChildren().add(panels.get(currentPanelIndex).getPanel()); // Initially displays Welcome Panel
         root.setCenter(panelContainer);
         
         setupNavigationButtons();
@@ -71,8 +76,8 @@ public class MainApplication extends Application {
         // Date Picker Container
         HBox topContainer = new HBox();
         topContainer.getChildren().addAll(startDatePicker, endDatePicker);
-        topContainer.setSpacing(10); // Set spacing between buttons
-        root.setTop(topContainer); // Set the HBox at the bottom of the BorderPane
+        topContainer.setSpacing(10); // Set spacing between date pickers
+        root.setTop(topContainer); // Set the HBox at the top of the BorderPane
 
         Scene scene = new Scene(root, 800, 600);
         mainStage.setTitle("London COVID-19 Statistics");
@@ -112,12 +117,21 @@ public class MainApplication extends Application {
             LocalDate endDate = endDatePicker.getValue();
             if (endDate != null && startDate != null && startDate.isAfter(endDate)) {
                 showAlert("Invalid Date Range", "Start date must be before end date.");
-                startDatePicker.setValue(null); // Reset the start date picker
+                // Reset the start date picker and navigation buttons
+                startDatePicker.setValue(null);
                 btnNext.setDisable(true);
                 btnPrevious.setDisable(true);
-                currentPanelIndex = 0; // Reset panel back to Welcome Panel
+                // Reset panel back to Welcome Panel
+                currentPanelIndex = 0;
                 updatePanelInView();
             } else if (startDate != null && endDate != null) {
+                // Sets start and end date attributes for each panel after given a valid date range
+                // Sets the filtered record list for each panel for given date range
+                for (Panel p : panels) {
+                    p.setDates(startDate, endDate);
+                    p.setFilteredRecords(getFilteredRecords(startDate, endDate));
+                }
+                // Enable navigation buttons after valid dates given
                 btnNext.setDisable(false);
                 btnPrevious.setDisable(false);
             }
@@ -129,12 +143,21 @@ public class MainApplication extends Application {
             LocalDate endDate = endDatePicker.getValue();
             if (startDate != null && endDate != null && endDate.isBefore(startDate)) {
                 showAlert("Invalid Date Range", "End date must be after start date.");
-                endDatePicker.setValue(null); // Reset the end date picker
+                // Reset the start date picker and navigation buttons
+                endDatePicker.setValue(null);
                 btnNext.setDisable(true);
                 btnPrevious.setDisable(true);
-                currentPanelIndex = 0; // Reset panel back to Welcome Panel
+                // Reset panel back to Welcome Panel
+                currentPanelIndex = 0;
                 updatePanelInView();
             } else if (endDate != null && startDate != null) {
+                // Sets start and end date attributes for each panel after given a valid date range
+                // Sets the filtered record list for each panel for given date range
+                for (Panel p : panels) {
+                    p.setDates(startDate, endDate);
+                    p.setFilteredRecords(getFilteredRecords(startDate, endDate));
+                }
+                // Enable navigation buttons after valid dates given
                 btnNext.setDisable(false);
                 btnPrevious.setDisable(false);
             }
@@ -176,7 +199,26 @@ public class MainApplication extends Application {
         alert.setContentText(content);
         alert.showAndWait();
     }
+    
+    /**
+     * Returns a list of CovidData records filtered by a given date range. 
+     * @param startDate
+     * @param endDate
+     */
+    public List<CovidData> getFilteredRecords(LocalDate startDate, LocalDate endDate) {
+        List<CovidData> filteredRecords = new ArrayList<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        
+        for (CovidData row : allRecords) {
+            LocalDate recordDate = LocalDate.parse(row.getDate(), formatter);
+            if (!recordDate.isBefore(startDate) && !recordDate.isAfter(endDate)) {
+                filteredRecords.add(row);
+            }
+        }
 
+        return filteredRecords;
+    }
+    
     /**
      * The main method that launches the JavaFX application.
      */

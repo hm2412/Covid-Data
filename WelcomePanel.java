@@ -1,5 +1,7 @@
 import javafx.scene.layout.Pane;
 import javafx.scene.control.Label;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * The Welcome Panel containing introductory information for the user.
@@ -15,6 +17,6 @@ public class WelcomePanel extends Panel {
     @Override
     protected void setupPanel() {
         panel.getChildren().add(new Label("Welcome Panel")); // Test statement to show panel works
-        // Implement the setup for the Map panel here
+        // Implement the setup for the Welcome panel here
     }
 }
