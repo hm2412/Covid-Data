@@ -8,6 +8,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.geometry.Pos;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -67,15 +68,16 @@ public class MainApplication extends Application {
         
         setupNavigationButtons();
         // Navigation Buttons Container
-        HBox bottomContainer = new HBox();
-        bottomContainer.getChildren().addAll(btnPrevious, btnNext);
-        bottomContainer.setSpacing(10); // Set spacing between buttons
+        BorderPane bottomContainer = new BorderPane();
+        bottomContainer.setLeft(btnPrevious);
+        bottomContainer.setRight(btnNext);
         root.setBottom(bottomContainer); // Set the HBox at the bottom of the BorderPane
         
         setupDatePickers();
         // Date Picker Container
         HBox topContainer = new HBox();
         topContainer.getChildren().addAll(startDatePicker, endDatePicker);
+        topContainer.setAlignment(Pos.TOP_RIGHT); // Set date pickers to the top right
         topContainer.setSpacing(10); // Set spacing between date pickers
         root.setTop(topContainer); // Set the HBox at the top of the BorderPane
 
