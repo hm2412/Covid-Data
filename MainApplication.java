@@ -132,6 +132,7 @@ public class MainApplication extends Application {
                 for (Panel p : panels) {
                     p.setDates(startDate, endDate);
                     p.setFilteredRecords(getFilteredRecords(startDate, endDate));
+                    p.setupPanel();
                 }
                 // Enable navigation buttons after valid dates given
                 btnNext.setDisable(false);
@@ -158,6 +159,7 @@ public class MainApplication extends Application {
                 for (Panel p : panels) {
                     p.setDates(startDate, endDate);
                     p.setFilteredRecords(getFilteredRecords(startDate, endDate));
+                    p.setupPanel();
                 }
                 // Enable navigation buttons after valid dates given
                 btnNext.setDisable(false);
