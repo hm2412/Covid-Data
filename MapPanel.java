@@ -45,12 +45,12 @@ public class MapPanel extends Panel {
         setUpRow5();
         setUpRow6();
         setUpRow7();
-
+        
         panel.getChildren().addAll(row1, row2, row3, row4, row5, row6, row7);
         
-        positionRows();
+        positionRows(); 
     }
-    
+
     /**
      * Positions the rows to arrange the buttons in a honeycomb-style map.
      * Each row is ultimately set in comparison to row1's position.
@@ -83,7 +83,7 @@ public class MapPanel extends Panel {
         row5.setLayoutX(row3.getLayoutX()+40);
         row5.setLayoutY(row3.getLayoutY()+63);
         
-        //Position row6 above row2
+        //Position row6 above row4
         row6.setLayoutX(row4.getLayoutX()+120);
         row6.setLayoutY(row4.getLayoutY()-63);
         
@@ -270,7 +270,9 @@ public class MapPanel extends Panel {
         List<CovidData> boroughRecords = new ArrayList<>(filterBoroughData(boroughName));
         
         for (CovidData row : boroughRecords) {
+            if (row.getNewDeaths() >= 0) {
                 totalDeaths += row.getNewDeaths();
+            }
         }
         double averageDeaths = calculateAverageDeaths();
         
