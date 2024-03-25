@@ -1,8 +1,8 @@
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-import javafx.application.*;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
+import javafx.application.*;
 import javafx.geometry.*;
 import javafx.collections.FXCollections;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * The Map Panel displays a map visualising Covid data between the specified date range. 
+ * The Map Panel displays a map visualizing COVID-19 databetween the specified date range. 
  * This includes colour-coding on each borough to indicate its death rate, as well as
  * windows that open upon click which display detailed borough data.
  * 
@@ -19,10 +19,9 @@ import java.util.ArrayList;
 public class MapPanel extends Panel {
     
     private Stage lastOpenedWindow = null;
-    private Button hillingdon, ealing, kensington, westminster, towerHamlets, 
-    newham, barking;
-    private Button harrow, brent, camden, islington, hackney, redbridge,
-    havering;
+    
+    private Button hillingdon, ealing, kensington, westminster, towerHamlets, newham, barking;
+    private Button harrow, brent, camden, islington, hackney, redbridge, havering;
     private Button hounslow, hammersmith, wandsworth, city, greenwich, bexley;
     private Button barnet, haringey, walthamForest;
     private Button richmond, merton, lambeth, southwark, lewisham;
@@ -30,10 +29,9 @@ public class MapPanel extends Panel {
     private Button kingston, sutton, croydon, bromley;
     private HBox row1, row2, row3, row4, row5, row6, row7; // Stores each row of boroughs
     
-    
     public MapPanel() {
         super();
-        this.panel = new Pane(); 
+        this.panel = new Pane();
         panel.getStylesheets().add("map.css"); // Sets button styles
         setupPanel();
     }
@@ -52,15 +50,15 @@ public class MapPanel extends Panel {
         
         positionRows();
     }
-
-    /** Positions the rows to arrange the buttons in a honeycomb-style map. Each row is ultimately set in comparison 
-     * to row1's position.
+    
+    /**
+     * Positions the rows to arrange the buttons in a honeycomb-style map.
+     * Each row is ultimately set in comparison to row1's position.
      * 
      * NOTE: Row1 is currently set to the center of the scene established in Main Application. This
      * places it at the middle of the expanded window, but means that when the program is initially open, you can't
      * see the whole map. It's essentially a temporary solution, because I could not find a way to center the map
      * such that it would be adjust based on window size. 
-     * 
      */
     private void positionRows() {
         double centerX = 400; // Center of Scene
@@ -97,67 +95,85 @@ public class MapPanel extends Panel {
     /**
      * Sets up Hillingdon, Ealing, Kensington And Chelsea, Westminster, Tower Hamlets, Newham and Barking And Dagenham.
      */
-    private void setUpRow1(){
+    private void setUpRow1() {
         row1 = new HBox();
+        
         hillingdon = new Button("HILL");
         setVisuals(hillingdon, "Hillingdon"); 
+        
         ealing = new Button("EALI");
         setVisuals(ealing, "Ealing");
+        
         kensington = new Button("KENS");
         setVisuals(kensington, "Kensington And Chelsea");
+        
         westminster = new Button("WSTM");
         setVisuals(westminster, "Westminster");
+        
         towerHamlets = new Button("TOWH");
         setVisuals(towerHamlets, "Tower Hamlets");
+        
         newham = new Button("NEWH");
         setVisuals(newham, "Newham");
+        
         barking = new Button("BARK");
         setVisuals(barking, "Barking And Dagenham");
         
-        row1.getChildren().addAll(hillingdon, ealing, kensington, westminster, towerHamlets, 
-        newham, barking);
+        row1.getChildren().addAll(hillingdon, ealing, kensington, westminster, towerHamlets, newham, barking);
         row1.setAlignment(Pos.CENTER);
     }
     
     /**
      * Sets up Harrow, Brent, Camden, Islington, Hackney, Redbridge and Havering.
      */
-    private void setUpRow2(){
+    private void setUpRow2() {
         row2 = new HBox();
+        
         harrow = new Button("HRRW");
         setVisuals(harrow, "Harrow");
+        
         brent = new Button("BREN");
         setVisuals(brent, "Brent");
+        
         camden = new Button("CAMD");
         setVisuals(camden, "Camden");
+        
         islington = new Button("ISLI");
         setVisuals(islington, "Islington");
+        
         hackney = new Button("HACK");
         setVisuals(hackney, "Hackney");
+        
         redbridge = new Button("REDB");
         setVisuals(redbridge, "Redbridge");
+        
         havering = new Button("HAVE");
         setVisuals(havering, "Havering");
         
-        row2.getChildren().addAll(harrow, brent, camden, islington, hackney, redbridge,
-        havering);
+        row2.getChildren().addAll(harrow, brent, camden, islington, hackney, redbridge, havering);
     }
     
     /**
      * Sets up Hounslow, Hammersmith And Fulham, Wandsworth, City Of London, Greenwich and Bexley.
      */
-    private void setUpRow3(){
+    private void setUpRow3() {
         row3 = new HBox();
+        
         hounslow = new Button("HOUN");
         setVisuals(hounslow, "Hounslow");
+        
         hammersmith = new Button("HAMM");
         setVisuals(hammersmith, "Hammersmith And Fulham");
+        
         wandsworth = new Button("WAND");
         setVisuals(wandsworth, "Wandsworth");
+        
         city = new Button("CITY");
         setVisuals(city, "City Of London");
+        
         greenwich = new Button("GWCH");
         setVisuals(greenwich, "Greenwich");
+        
         bexley = new Button("BEXL");
         setVisuals(bexley, "Bexley");
         
@@ -167,12 +183,15 @@ public class MapPanel extends Panel {
     /**
      * Sets up Barnet, Haringey and Waltham Forest.
      */
-    private void setUpRow4(){
+    private void setUpRow4() {
         row4 = new HBox();
+        
         barnet = new Button("BARN");
         setVisuals(barnet, "Barnet");
+        
         haringey = new Button("HRGY");
         setVisuals(haringey, "Haringey");
+        
         walthamForest = new Button("WALT");
         setVisuals(walthamForest, "Waltham Forest");
         
@@ -182,16 +201,21 @@ public class MapPanel extends Panel {
     /**
      * Sets up Richmond Upon Thames, Merton, Lambeth, Southwark and Lewisham.
      */
-    private void setUpRow5(){
+    private void setUpRow5() {
         row5 = new HBox();
+        
         richmond = new Button("RICH");
         setVisuals(richmond, "Richmond Upon Thames");
+        
         merton = new Button("MERT");
         setVisuals(merton, "Merton");
+        
         lambeth = new Button("LAMB");
         setVisuals(lambeth, "Lambeth");
+        
         southwark = new Button("STHW");
         setVisuals(southwark, "Southwark");
+        
         lewisham = new Button("LEWS");
         setVisuals(lewisham,"Lewisham");
         
@@ -201,8 +225,9 @@ public class MapPanel extends Panel {
     /**
      * Sets up Enfield.
      */
-    private void setUpRow6(){
+    private void setUpRow6() {
         row6 = new HBox();
+        
         enfield = new Button("ENFI");
         setVisuals(enfield, "Enfield");
         
@@ -212,14 +237,18 @@ public class MapPanel extends Panel {
     /**
      * Sets up Kingston Upon Thames, Sutton, Croydon and Bromley.
      */
-    private void setUpRow7(){
+    private void setUpRow7() {
         row7 = new HBox();
+        
         kingston = new Button("KING");
         setVisuals(kingston, "Kingston Upon Thames");
+        
         sutton = new Button("SUTT");
         setVisuals(sutton, "Sutton");
+        
         croydon = new Button("CROY");
         setVisuals(croydon, "Croydon");
+        
         bromley = new Button("BROM");
         setVisuals(bromley, "Bromley");
         
@@ -230,30 +259,30 @@ public class MapPanel extends Panel {
      * Sets up the button functionality and colour.
      * Each borough is coloured depending on the total deaths within the selected date range, in comparison
      * to the average death rate over all boroughs. Colours are delineated in the map.css file.
+     * NOTE: Set the date range to a smaller one to see all colours
+     * 
      * @param button The button to be altered.
      * @param boroughName The name of the borough to filter records.
-     * 
-     * NOTE: Set the date range to a smaller one to see all colours
      */
-    private void setVisuals(Button button, String boroughName){
+    private void setVisuals(Button button, String boroughName) {
         double totalDeaths = 0;
         button.setOnAction(e -> showBoroughData(boroughName));
         List<CovidData> boroughRecords = new ArrayList<>(filterBoroughData(boroughName));
         
-        for (CovidData row : boroughRecords){
+        for (CovidData row : boroughRecords) {
                 totalDeaths += row.getNewDeaths();
         }
         double averageDeaths = calculateAverageDeaths();
         
-        if (totalDeaths <= (averageDeaths*0.33)){
+        if (totalDeaths <= (averageDeaths*0.33)) {
             button.getStyleClass().add("green");
-        } else if (totalDeaths <= (averageDeaths*0.66)){
+        } else if (totalDeaths <= (averageDeaths*0.66)) {
             button.getStyleClass().add("greenyellow");
-        } else if (totalDeaths<= averageDeaths){
+        } else if (totalDeaths<= averageDeaths) {
             button.getStyleClass().add("yellow");
-        } else if (totalDeaths <= (averageDeaths*1.33)){
+        } else if (totalDeaths <= (averageDeaths*1.33)) {
             button.getStyleClass().add("orange");
-        } else if (totalDeaths<= (averageDeaths*1.66)){
+        } else if (totalDeaths<= (averageDeaths*1.66)) {
             button.getStyleClass().add("orangered");
         } else {
             button.getStyleClass().add("red");
@@ -262,10 +291,11 @@ public class MapPanel extends Panel {
     
     /**
      * Calculates the average death over all boroughs, by adding up the total deaths and dividing
-     * it by 33 (the total number of boroughs). 
+     * it by 33 (the total number of boroughs).
+     * 
      * @return The average death rate over all boroughs.
      */
-    private double calculateAverageDeaths(){
+    private double calculateAverageDeaths() {
         double totalDeaths = 0;
         for (CovidData data:this.filteredRecords) {
             totalDeaths += data.getNewDeaths();
@@ -273,25 +303,26 @@ public class MapPanel extends Panel {
         return totalDeaths/33;
     }
     
-    
     /**
      * Filters the records for a specific borough.
+     * 
      * @param boroughName The name of the borough for which to filter the records.
      * @return A list of CovidData records for the specified borough.
      */
     private List<CovidData> filterBoroughData(String boroughName) {
-    List<CovidData> boroughRecords = new ArrayList<>();
-    for (CovidData row : this.filteredRecords) {
-        if (row.getBorough().equals(boroughName)) {
-            boroughRecords.add(row);
+        List<CovidData> boroughRecords = new ArrayList<>();
+        for (CovidData row : this.filteredRecords) {
+            if (row.getBorough().equals(boroughName)) {
+                boroughRecords.add(row);
+            }
         }
-    }
-    return boroughRecords;
+        return boroughRecords;
     }
     
     /**
      * Opens a new window displaying data for the specified borough.
      * If a window is already open, it closes before the new one opens.
+     * 
      * @param boroughName The name of the borough for which to display data.
      */
     private void showBoroughData(String boroughName) {
@@ -302,8 +333,7 @@ public class MapPanel extends Panel {
         
         // Gets filtered data for the borough
         List<CovidData> boroughRecords = new ArrayList<>(filterBoroughData(boroughName));
-        System.out.println("Number of Records: " + boroughRecords.size()); 
-            
+        
         // New window to show borough details
         Stage detailsStage = new Stage();
         detailsStage.setTitle(boroughName);

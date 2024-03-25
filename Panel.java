@@ -6,6 +6,8 @@ import java.util.List;
 /**
  * Abstract base class representing a generic panel in the application.
  * Subclasses extend and implement the setupPanel() method.
+ * 
+ * @author Ahmet Taramis
  */
 public abstract class Panel {
     

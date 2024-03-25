@@ -31,6 +31,8 @@ import java.util.List;
  * - A Welcome Panel, which provides introductory information to the user.
  * - A Map Panel, intended to display a visual representation of COVID-19 data across London's boroughs for given dates.
  * - A Statistics Panel, designed to show various statistics based on the selected date range.
+ * 
+ * @author Ahmet Taramis
  */
 public class MainApplication extends Application {
 

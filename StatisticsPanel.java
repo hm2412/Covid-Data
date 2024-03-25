@@ -1,31 +1,32 @@
-import javafx.scene.layout.BorderPane;
-import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-import javafx.geometry.Insets;
+import javafx.scene.control.Label;
 import javafx.scene.control.Button;
-import java.time.*;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import javafx.application.Platform;
 import javafx.geometry.Pos;
-import java.util.List;
+import javafx.geometry.Insets;
+import java.time.*;
+import javafx.application.Platform;
 import java.util.function.Function;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * The Statistics Panel designed to show various COVID-19 statistics.
+ * 
+ * @author Adam Jacobs, Khadija Hashim
  */
 public class StatisticsPanel extends Panel {
+    
     // containers for buttons and statistics view
     private VBox statistic1Container;
     private VBox statistic2Container;
     private VBox statistic3Container;
+    
     // buttons 
     private Button btnNextStat;
     private Button btnPrevStat;
+    
     // counter to keep track of different stats
     private int currentStatIndex = 0;
-    // covid data 
-    private ArrayList<CovidData> covidDataList;
     
     public StatisticsPanel() {
         super(); 
@@ -73,39 +74,6 @@ public class StatisticsPanel extends Panel {
         panel.getChildren().addAll(root);
     }
     
-    // STATISTICS FUNCTIONS USED
-    private double calculateAverageTransitGMR() {
-        double total = 0;
-        for(CovidData data:filteredRecords){
-            total += data.getTransitGMR();
-        }
-        return total/filteredRecords.size();
-    }
-    
-    private double calculateAverageGroceryPharmacyGMR(){
-        double total = 0;
-        for(CovidData data:filteredRecords){
-            total += data.getGroceryPharmacyGMR();
-        }
-        return total/filteredRecords.size();
-    }
-    
-    private int calculateTotalDeaths() {
-        int total = 0;
-        for (CovidData data:filteredRecords) {
-            total += data.getNewDeaths();
-        }
-        return total;
-    }   
-    
-    private double calculateAverageTotalCases() {
-        double total = 0;
-        for (CovidData data:filteredRecords) {
-            total += data.getNewCases();
-        }
-        return total/33; //Divided by 33 as that is the amount of boroughs, therefore giving average cases per borough
-    }
-    
     // adds functionality to navigation buttons
     private void setupStatistics(int currentStatIndex) {
         Platform.runLater(() -> {
@@ -147,8 +115,41 @@ public class StatisticsPanel extends Panel {
         });
     }
     
+    // STATISTICS FUNCTIONS USED
+    private double calculateAverageTransitGMR() {
+        double total = 0;
+        for(CovidData data:filteredRecords){
+            total += data.getTransitGMR();
+        }
+        return total/filteredRecords.size();
+    }
+    
+    private double calculateAverageGroceryPharmacyGMR() {
+        double total = 0;
+        for(CovidData data:filteredRecords){
+            total += data.getGroceryPharmacyGMR();
+        }
+        return total/filteredRecords.size();
+    }
+    
+    private int calculateTotalDeaths() {
+        int total = 0;
+        for (CovidData data:filteredRecords) {
+            total += data.getNewDeaths();
+        }
+        return total;
+    }   
+    
+    private double calculateAverageTotalCases() {
+        double total = 0;
+        for (CovidData data:filteredRecords) {
+            total += data.getNewCases();
+        }
+        return total/33; //Divided by 33 as that is the amount of boroughs, therefore giving average cases per borough
+    }
+    
     // setting up the next and previous buttons
-    private void setupNavigationButtons(){
+    private void setupNavigationButtons() {
         btnNextStat = new Button("->");
         btnPrevStat = new Button("<-");
         
@@ -174,11 +175,4 @@ public class StatisticsPanel extends Panel {
         currentStatIndex = (currentStatIndex - 1 + 4) % 4;
         setupStatistics(currentStatIndex);
     }
-    
-    //override the set filtered records function so that it updates the statistics panel when the date pickers are interacted with
-    @Override 
-    protected void setFilteredRecords(List<CovidData> filteredRecords){
-        super.setFilteredRecords(filteredRecords);
-        setupStatistics(currentStatIndex);
-    }    
 }
