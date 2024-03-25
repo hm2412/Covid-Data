@@ -29,7 +29,6 @@ public class MainApplicationTest {
         main = new MainApplication();
     }
     
-    
     @Test
     public void testValidFilteredRecord() {
         LocalDate startDate = LocalDate.parse("2021-01-01");
