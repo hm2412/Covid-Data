@@ -55,6 +55,7 @@ public class MainApplication extends Application {
         panels.add(new WelcomePanel());
         panels.add(new MapPanel());
         panels.add(new StatisticsPanel());
+        panels.add(new GraphPanel());
 
         // Panel container
         panelContainer = new StackPane();
