@@ -1,4 +1,3 @@
-import javafx.scene.layout.Pane;
 import javafx.scene.chart.*;
 import java.util.Map;
 import java.util.HashMap;
