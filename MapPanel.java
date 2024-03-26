@@ -31,7 +31,6 @@ public class MapPanel extends Panel {
     
     public MapPanel() {
         super();
-        this.panel = new Pane();
         panel.getStylesheets().add("map.css"); // Sets button styles
         setupPanel();
     }
