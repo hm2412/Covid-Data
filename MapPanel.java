@@ -53,11 +53,6 @@ public class MapPanel extends Panel {
     /**
      * Positions the rows to arrange the buttons in a honeycomb-style map.
      * Each row is ultimately set in comparison to row1's position.
-     * 
-     * NOTE: Row1 is currently set to the center of the scene established in Main Application. This
-     * places it at the middle of the expanded window, but means that when the program is initially open, you can't
-     * see the whole map. It's essentially a temporary solution, because I could not find a way to center the map
-     * such that it would be adjust based on window size. 
      */
     private void positionRows() {
         double centerX = 400; // Center of Scene
