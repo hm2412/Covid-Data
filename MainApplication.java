@@ -14,16 +14,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-/** 
- * Group Note:
- * The layout currently is a borderPane(root) with the centre being a stackPane(Panel Container) to display the panels,
- * but the panels themselves can be any layout style (e.g. borderPane)
- * 
- * I have also made the template for the report which we can fill out towards the end.
- */
-
 /**
  * This class extends the Application class from JavaFX and sets up the primary stage (window) for the application.
+ * The layout currently is a borderPane(root) with the centre being a stackPane(Panel Container) to display the panels
  * 
  * It includes a date range selection feature at the top and navigation buttons at the bottom.
  * Users can navigate once a valid date range has been selected.
@@ -131,6 +124,7 @@ public class MainApplication extends Application {
             } else if (startDate != null && endDate != null) {
                 // Sets start and end date attributes for each panel after given a valid date range
                 // Sets the filtered record list for each panel for given date range
+                // Runs setupPanel() for each panel to update in real time for newly selected dates
                 for (Panel p : panels) {
                     p.setDates(startDate, endDate);
                     p.setFilteredRecords(getFilteredRecords(startDate, endDate));
@@ -158,6 +152,7 @@ public class MainApplication extends Application {
             } else if (endDate != null && startDate != null) {
                 // Sets start and end date attributes for each panel after given a valid date range
                 // Sets the filtered record list for each panel for given date range
+                // Runs setupPanel() for each panel to update in real time for newly selected dates
                 for (Panel p : panels) {
                     p.setDates(startDate, endDate);
                     p.setFilteredRecords(getFilteredRecords(startDate, endDate));
