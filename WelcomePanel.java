@@ -2,11 +2,11 @@ import javafx.scene.layout.*;
 import javafx.scene.control.Label;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import java.util.List;
-import java.util.ArrayList;
 
 /**
  * The Welcome Panel containing introductory information for the user.
+ * 
+ * @author Adam Jacobs, Khadija Hashim
  */
 public class WelcomePanel extends Panel {
     
