@@ -122,6 +122,8 @@ public class MainApplication extends Application {
                 // Reset panel back to Welcome Panel
                 currentPanelIndex = 0;
                 updatePanelInView();
+                panels.get(0).setDates(null, null);
+                panels.get(0).setupPanel();
             } else if (startDate != null && endDate != null) {
                 // Sets start and end date attributes for each panel after given a valid date range
                 // Sets the filtered record list for each panel for given date range
@@ -150,6 +152,8 @@ public class MainApplication extends Application {
                 // Reset panel back to Welcome Panel
                 currentPanelIndex = 0;
                 updatePanelInView();
+                panels.get(0).setDates(null, null);
+                panels.get(0).setupPanel();
             } else if (endDate != null && startDate != null) {
                 // Sets start and end date attributes for each panel after given a valid date range
                 // Sets the filtered record list for each panel for given date range
